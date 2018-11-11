@@ -1,4 +1,4 @@
-import Model from "./Model";
+import Particle from "./Particle";
 import { canvas, c, randomIntFromRange } from "./utils";
 
 canvas.width = innerWidth;
@@ -15,27 +15,28 @@ addEventListener("resize", () => {
 addEventListener("click", () => init());
 
 // Implementation
-let models;
+let particles;
 
 function init() {
-  models = [];
+  particles = [];
 
-  for (let i = 0; i < 1; i++) {
-    const radius = randomIntFromRange(5, 50);
-    const x = randomIntFromRange(radius, canvas.width - radius);
-    const y = randomIntFromRange(radius, canvas.height - radius);
+  for (let i = 0; i < 50; i++) {
+    const radius = Math.random() * 2 + 1;
+    const x = canvas.width / 2;
+    const y = canvas.height / 2;
 
-    models.push(new Model(x, y, radius));
+    particles.push(new Particle(x, y, radius));
   }
 }
 
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
+  c.fillStyle = "rgba(255, 255, 255, 0.05";
+  c.fillRect(0, 0, canvas.width, canvas.height);
 
-  models.forEach(model => {
-    model.update();
+  particles.forEach(particle => {
+    particle.update();
   });
 }
 
